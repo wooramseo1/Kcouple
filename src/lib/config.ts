@@ -14,14 +14,16 @@ export function isDemoMode(): boolean {
   return process.env.NODE_ENV !== "production";
 }
 
+const CONTACT_EMAIL = "inbroad.global@gmail.com";
+
 export const site = {
   name: "K-Couple",
   url: process.env.SITE_URL ?? "http://localhost:3000",
-  supportEmail: process.env.SUPPORT_EMAIL ?? "support@example.com",
+  supportEmail: process.env.SUPPORT_EMAIL ?? CONTACT_EMAIL,
   /** 개인정보 보호책임자 (Korean PIPA requires naming the privacy officer). */
   privacyOfficer: process.env.PRIVACY_OFFICER ?? "(운영 전 기재 필요 / to be filled in before launch)",
   /** Child-safety point of contact required by Play's Child Safety Standards policy. */
-  childSafetyEmail: process.env.CHILD_SAFETY_EMAIL ?? process.env.SUPPORT_EMAIL ?? "support@example.com",
+  childSafetyEmail: process.env.CHILD_SAFETY_EMAIL ?? process.env.SUPPORT_EMAIL ?? CONTACT_EMAIL,
   operator: process.env.OPERATOR_NAME ?? "K-Couple",
 };
 
