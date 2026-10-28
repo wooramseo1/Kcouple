@@ -68,7 +68,11 @@ export default function SettingsPage() {
               checked={visible} onChange={(e) => { setVisible(e.target.checked); persist({ profile: { isVisible: e.target.checked } }); }} />
           </label>
           <p className="mt-4 text-xs leading-relaxed text-ink-500">{t("settings.privacyNote")}</p>
-          <Link href="/privacy" className="mt-2 inline-block text-xs font-semibold text-brand-600 underline">{t("settings.policy")}</Link>
+          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs font-semibold text-brand-600">
+            <Link href="/privacy" className="underline">{t("settings.policy")}</Link>
+            <Link href="/terms" className="underline">{t("settings.terms")}</Link>
+            <Link href="/child-safety" className="underline">{t("settings.childSafety")}</Link>
+          </div>
         </Group>
 
         <Group>

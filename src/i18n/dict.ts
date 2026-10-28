@@ -45,7 +45,7 @@ const en = {
 
   "discover.empty": "You've seen everyone for now", "discover.emptySub": "Try widening your age range or preferences, or check back later.",
   "discover.editPrefs": "Adjust preferences", "discover.like": "Like", "discover.pass": "Pass", "discover.demo": "Demo profile",
-  "discover.speaks": "Speaks", "discover.lives": "Lives in", "discover.lookingFor": "Looking for",
+  "discover.reportBlock": "Report or block {name}", "discover.speaks": "Speaks", "discover.lives": "Lives in", "discover.lookingFor": "Looking for",
   "discover.hint": "Swipe right to like, left to pass · ← → keys work too",
   "match.title": "It's a Match!", "match.sub": "You and {name} liked each other.",
   "match.send": "Send a message", "match.keep": "Keep swiping",
@@ -72,7 +72,7 @@ const en = {
   "settings.privacy": "Privacy", "settings.logout": "Log out", "settings.delete": "Delete account",
   "settings.deleteConfirm": "Delete your account? Your profile, photos, likes and messages will be removed. This cannot be undone.",
   "settings.privacyNote": "We never show your email or birth date. Only your age is shown. We don't collect your home address, ARC number or visa documents.",
-  "settings.policy": "Privacy policy",
+  "settings.policy": "Privacy policy", "settings.terms": "Terms of Service", "settings.childSafety": "Child safety standards",
 
   "admin.title": "Operator console", "admin.reports": "Reports", "admin.audit": "Audit log",
   "admin.open": "Open", "admin.review": "Start review", "admin.dismiss": "Dismiss", "admin.suspend": "Suspend user",
@@ -132,7 +132,7 @@ const ko: Dict = {
 
   "discover.empty": "지금은 모든 프로필을 확인했어요", "discover.emptySub": "나이 범위나 선호 조건을 넓혀보거나 나중에 다시 확인해주세요.",
   "discover.editPrefs": "선호 조건 변경", "discover.like": "좋아요", "discover.pass": "패스", "discover.demo": "데모 프로필",
-  "discover.speaks": "사용 언어", "discover.lives": "거주지", "discover.lookingFor": "원하는 만남",
+  "discover.reportBlock": "{name}님 신고·차단", "discover.speaks": "사용 언어", "discover.lives": "거주지", "discover.lookingFor": "원하는 만남",
   "discover.hint": "오른쪽으로 밀면 좋아요, 왼쪽은 패스 · ← → 키도 사용 가능",
   "match.title": "매칭 성공!", "match.sub": "{name}님과 서로 좋아요를 눌렀어요.",
   "match.send": "메시지 보내기", "match.keep": "계속 탐색하기",
@@ -159,7 +159,7 @@ const ko: Dict = {
   "settings.privacy": "개인정보", "settings.logout": "로그아웃", "settings.delete": "회원 탈퇴",
   "settings.deleteConfirm": "탈퇴하시겠어요? 프로필, 사진, 좋아요, 메시지가 삭제되며 되돌릴 수 없습니다.",
   "settings.privacyNote": "이메일과 생년월일은 공개되지 않으며 나이만 표시됩니다. 집 주소, 외국인등록번호, 비자 서류는 수집하지 않습니다.",
-  "settings.policy": "개인정보 처리방침",
+  "settings.policy": "개인정보 처리방침", "settings.terms": "서비스 이용약관", "settings.childSafety": "아동 안전 기준",
 
   "admin.title": "운영자 콘솔", "admin.reports": "신고", "admin.audit": "감사 로그",
   "admin.open": "미처리", "admin.review": "검토 시작", "admin.dismiss": "기각",

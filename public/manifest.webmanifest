@@ -1,10 +1,21 @@
 {
+  "id": "/",
   "name": "K-Couple",
   "short_name": "K-Couple",
-  "description": "Connect Hearts Beyond Borders",
-  "start_url": "/discover",
+  "description": "Mutual-match dating for foreigners in Korea and Koreans. 한국 거주 외국인과 한국인을 잇는 상호 매칭 데이팅.",
+  "lang": "ko",
+  "start_url": "/discover?source=pwa",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#f6f4f8",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
   "theme_color": "#fd4a6c",
-  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+  "categories": ["lifestyle", "social"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
 }

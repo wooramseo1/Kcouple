@@ -9,6 +9,7 @@ import { flag } from "@/lib/constants";
 import type { PublicProfile, SwipeAction } from "@/lib/types";
 import { Photo } from "./Photo";
 import { ProfileDetail } from "./ProfileDetail";
+import { ReportSheet } from "./ReportSheet";
 import { IconHeart, IconInfo, IconPin, IconX } from "./Icons";
 
 const SWIPE_THRESHOLD = 110;
@@ -25,6 +26,7 @@ export function SwipeDeck({ me }: { me: { nickname: string; photo?: string } }) 
   const [drag, setDrag] = useState<Drag>({ x: 0, y: 0, startX: 0, startY: 0, t: 0, active: false });
   const [flying, setFlying] = useState<SwipeAction | null>(null);
   const [detail, setDetail] = useState(false);
+  const [reporting, setReporting] = useState(false);
   const [match, setMatch] = useState<{ profile: PublicProfile; matchId: string } | null>(null);
   const seen = useRef(new Set<string>());
   const fetching = useRef(false);
@@ -69,7 +71,7 @@ export function SwipeDeck({ me }: { me: { nickname: string; photo?: string } }) 
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (match || (e.target as HTMLElement)?.tagName === "INPUT") return;
+      if (match || reporting || ["INPUT", "TEXTAREA"].includes((e.target as HTMLElement)?.tagName)) return;
       if (e.key === "ArrowRight") commit("like");
       else if (e.key === "ArrowLeft") commit("pass");
       else if (e.key === "ArrowUp") setDetail(true);
@@ -78,7 +80,7 @@ export function SwipeDeck({ me }: { me: { nickname: string; photo?: string } }) 
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [commit, match, top]);
+  }, [commit, match, reporting, top]);
 
   /* ---------- pointer handling ---------- */
   const onDown = (e: React.PointerEvent) => {
@@ -183,12 +185,22 @@ export function SwipeDeck({ me }: { me: { nickname: string; photo?: string } }) 
         <ProfileDetail
           profile={top}
           onClose={() => setDetail(false)}
+          onReport={() => setReporting(true)}
           footer={
             <div className="flex justify-center gap-6">
               <RoundButton label={t("discover.pass")} onClick={() => commit("pass")} className="text-rose-500"><IconX className="h-7 w-7" /></RoundButton>
               <RoundButton label={t("discover.like")} onClick={() => commit("like")} className="text-emerald-500" big><IconHeart className="h-9 w-9" /></RoundButton>
             </div>
           }
+        />
+      )}
+
+      {reporting && top && (
+        <ReportSheet
+          name={top.nickname}
+          targetId={top.userId}
+          onClose={() => setReporting(false)}
+          onDone={() => { setReporting(false); commit("pass"); }}
         />
       )}
 

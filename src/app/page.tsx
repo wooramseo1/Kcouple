@@ -68,6 +68,13 @@ export default async function Landing() {
             </div>
           ))}
         </section>
+
+        <footer className="flex flex-wrap gap-x-4 gap-y-2 border-t border-ink-100 py-6 text-xs text-ink-500">
+          <Link href="/terms" className="hover:underline">{t("settings.terms")}</Link>
+          <Link href="/privacy" className="hover:underline">{t("settings.policy")}</Link>
+          <Link href="/child-safety" className="hover:underline">{t("settings.childSafety")}</Link>
+          <Link href="/account-deletion" className="hover:underline">{t("settings.delete")}</Link>
+        </footer>
       </div>
     </main>
   );

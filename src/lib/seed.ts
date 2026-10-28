@@ -57,11 +57,16 @@ function langs(s: string): SpokenLanguage[] {
 const opposite = (g: Gender): Gender[] => (g === "male" ? ["female"] : g === "female" ? ["male"] : ["female", "male", "nonbinary"]);
 const otherGroup = (g: UserGroup): UserGroup => (g === "korean" ? "foreigner" : "korean");
 
-export function seed(): Database {
-  const db: Database = {
+export function emptyDatabase(): Database {
+  return {
     users: [], profiles: [], preferences: [], swipes: [], matches: [], messages: [], blocks: [],
     reports: [], verifications: [], auditLogs: [], sessions: [],
   };
+}
+
+/** Demo data only: sample profiles and shared logins with published passwords. */
+export function seed(): Database {
+  const db = emptyDatabase();
   const created = new Date().toISOString();
   const demoHash = hashPassword("demo1234");
 

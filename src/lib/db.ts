@@ -10,7 +10,9 @@ import path from "node:path";
 import type {
   AuditLog, Block, Match, Message, Preferences, Profile, Report, Session, Swipe, User, VerificationRecord,
 } from "./types";
-import { seed } from "./seed";
+import { emptyDatabase, seed } from "./seed";
+import { isDemoMode } from "./config";
+import { hashPassword } from "./password";
 
 export interface Database {
   users: User[];
@@ -26,18 +28,48 @@ export interface Database {
   sessions: Session[];
 }
 
-const FILE = path.join(process.cwd(), ".data", "db.json");
+// Point DATA_DIR at a persistent disk in production; container filesystems are wiped on restart.
+const FILE = path.join(process.env.DATA_DIR ?? path.join(process.cwd(), ".data"), "db.json");
 
 const g = globalThis as unknown as { __kcoupleDb?: Database; __kcoupleSaveTimer?: NodeJS.Timeout };
 
+function initial(): Database {
+  return isDemoMode() ? seed() : emptyDatabase();
+}
+
 function load(): Database {
+  let db: Database;
   try {
-    return JSON.parse(fs.readFileSync(FILE, "utf8")) as Database;
+    db = JSON.parse(fs.readFileSync(FILE, "utf8")) as Database;
   } catch {
-    const db = seed();
-    persist(db);
-    return db;
+    db = initial();
   }
+  ensureAdmin(db);
+  persist(db);
+  return db;
+}
+
+/** Creates (or re-keys) the operator account from ADMIN_EMAIL / ADMIN_PASSWORD. */
+function ensureAdmin(db: Database) {
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const password = process.env.ADMIN_PASSWORD;
+  if (!email || !password) return;
+  if (password.length < 12) {
+    console.warn("[db] ADMIN_PASSWORD must be at least 12 characters; admin account not created.");
+    return;
+  }
+  const t = new Date().toISOString();
+  const existing = db.users.find((u) => u.email === email);
+  if (existing) {
+    existing.role = "admin";
+    existing.status = "active";
+    existing.passwordHash = hashPassword(password);
+    return;
+  }
+  db.users.push({
+    id: crypto.randomUUID(), email, passwordHash: hashPassword(password), status: "active", role: "admin",
+    ageVerified: true, birthDate: null, termsAcceptedAt: t, createdAt: t, lastActiveAt: t,
+  });
 }
 
 function persist(db: Database) {
@@ -58,11 +90,6 @@ export function db(): Database {
 export function save() {
   if (g.__kcoupleSaveTimer) clearTimeout(g.__kcoupleSaveTimer);
   g.__kcoupleSaveTimer = setTimeout(() => persist(db()), 200);
-}
-
-export function resetDatabase() {
-  g.__kcoupleDb = seed();
-  persist(g.__kcoupleDb);
 }
 
 export function id(): string {

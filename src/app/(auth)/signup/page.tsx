@@ -44,7 +44,7 @@ export default function SignupPage() {
         </div>
         <label className="flex items-start gap-3 text-sm">
           <input type="checkbox" className="mt-0.5 h-5 w-5 accent-brand-500" checked={terms} onChange={(e) => setTerms(e.target.checked)} />
-          <span>{t("auth.acceptTerms")}</span>
+          <span>{t("auth.acceptTerms")} · <Link href="/terms" className="underline" target="_blank">{t("settings.terms")}</Link></span>
         </label>
         <label className="flex items-start gap-3 text-sm">
           <input type="checkbox" className="mt-0.5 h-5 w-5 accent-brand-500" checked={privacy} onChange={(e) => setPrivacy(e.target.checked)} />

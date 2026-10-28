@@ -2,6 +2,7 @@ import { db, id, now, save } from "./db";
 import { HttpError } from "./http";
 import { ageOn, mutuallyEligible, normalizePair, score, type Member } from "./matching";
 import { MAX_MESSAGE_LENGTH } from "./constants";
+import { isDemoMode } from "./config";
 import type { Match, Message, PublicProfile, ReportReason, SwipeAction, User } from "./types";
 
 export function member(userId: string): Member | null {
@@ -89,7 +90,7 @@ export function swipe(userId: string, targetId: string, action: SwipeAction): { 
     save();
     return { matched: false, matchId: null };
   }
-  if (target.user.isDemo && demoLikesBack(targetId, userId)) upsertSwipe(targetId, userId, "like");
+  if (target.user.isDemo && isDemoMode() && demoLikesBack(targetId, userId)) upsertSwipe(targetId, userId, "like");
 
   const theyLiked = db().swipes.some((s) => s.fromUserId === targetId && s.toUserId === userId && s.action === "like");
   if (!theyLiked) {
@@ -172,7 +173,7 @@ export function sendMessage(matchId: string, user: User, raw: string): Message {
   db().messages.push(msg);
   m.lastReadAt[user.id] = msg.createdAt;
   save();
-  if (otherUser.isDemo) scheduleDemoReply(m, other);
+  if (otherUser.isDemo && isDemoMode()) scheduleDemoReply(m, other);
   return msg;
 }
 

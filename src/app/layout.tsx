@@ -2,18 +2,20 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { I18nProvider } from "@/i18n/client";
 import { getLang } from "@/i18n/server";
+import { ServiceWorker } from "@/components/ServiceWorker";
 
 export const metadata: Metadata = {
   title: "K-Couple — Connect Hearts Beyond Borders",
   description: "Meet Korean singles open to international dating. Mutual-match dating for foreigners in Korea and Koreans.",
   manifest: "/manifest.webmanifest",
-  icons: { icon: "/icon.svg" },
+  icons: { icon: "/icon.svg", apple: "/icons/apple-touch-icon.png" },
+  appleWebApp: { capable: true, title: "K-Couple", statusBarStyle: "default" },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  viewportFit: "cover",
   themeColor: "#fd4a6c",
 };
 
@@ -26,6 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <I18nProvider initial={lang}>{children}</I18nProvider>
+        <ServiceWorker />
       </body>
     </html>
   );

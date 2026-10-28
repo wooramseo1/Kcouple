@@ -14,6 +14,11 @@ npm run build && npm start
 
 로그인 화면의 **데모 계정** 버튼으로 바로 체험할 수 있습니다.
 
+> **데모 모드**: `npm run dev`에서는 기본으로 켜지고, `npm start`(운영)에서는 꺼집니다. 데모 프로필이 자동으로 좋아요·답장하는 것은 실제 서비스에서는 기만 행위가 되므로 운영에서는 켜지 마세요.
+> 운영 서버에서 데모를 보려면 `DEMO_MODE=true npm start`. 운영 환경변수는 `.env.example`을 참고하세요.
+>
+> **Google Play 출시**: 절차와 정책 체크리스트는 [`docs/PLAY_STORE.md`](docs/PLAY_STORE.md)에 있습니다.
+
 | 계정 | 비밀번호 | 설명 |
 | --- | --- | --- |
 | `sam@kcouple.dev` | `demo1234` | 서울 거주 외국인 (한국인 여성 탐색) |
@@ -21,7 +26,7 @@ npm run build && npm start
 | `admin@kcouple.dev` | `admin1234` | 운영자 콘솔 (신고 큐·감사 로그) |
 
 시드에는 24명의 데모 프로필(“Demo profile” 배지)이 있으며, 데모 프로필은 일부 확률로 Like를 돌려주고 첫 메시지 몇 개에 자동 응답해 혼자서도 매칭·채팅 흐름을 확인할 수 있습니다.
-데이터는 `.data/db.json`에 저장되며, 이 파일을 지우면 초기 상태로 돌아갑니다.
+데이터는 `.data/db.json`(또는 `DATA_DIR`)에 저장되며, 이 파일을 지우면 초기 상태로 돌아갑니다.
 
 ## 구현 범위 (PRD §3 P0)
 

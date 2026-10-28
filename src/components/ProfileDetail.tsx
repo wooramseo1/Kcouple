@@ -8,14 +8,14 @@ import { Photo } from "./Photo";
 import { IconDown, IconPin } from "./Icons";
 
 /** Full-screen scrollable profile view (Tinder's "expanded card"). */
-export function ProfileDetail({ profile, onClose, footer }: { profile: PublicProfile; onClose: () => void; footer?: React.ReactNode }) {
+export function ProfileDetail({ profile, onClose, footer, onReport }: { profile: PublicProfile; onClose: () => void; footer?: React.ReactNode; onReport?: () => void }) {
   const { t, langName, interestName, cityName, lang } = useI18n();
   const [idx, setIdx] = useState(0);
   const country = (() => { try { return new Intl.DisplayNames([lang], { type: "region" }).of(profile.nationality); } catch { return profile.nationality; } })();
   return (
     <div className="absolute inset-0 z-40 flex flex-col bg-white animate-pop" role="dialog" aria-label={profile.nickname}>
       <div className="no-scrollbar flex-1 overflow-y-auto pb-28">
-        <div className="relative aspect-[3/4] w-full">
+        <div className="relative aspect-[3/4] max-h-[60dvh] w-full">
           <Photo src={profile.photos[idx]} alt={profile.nickname} className="h-full w-full" emojiSize="text-[120px]" />
           {profile.photos.length > 1 && (
             <>
@@ -53,6 +53,11 @@ export function ProfileDetail({ profile, onClose, footer }: { profile: PublicPro
               {profile.interests.map((i) => <span key={i} className="chip-off">{INTEREST_EMOJI[i]} {interestName(i)}</span>)}
             </div>
           </Section>
+          {onReport && (
+            <button onClick={onReport} className="w-full border-t border-ink-100 pt-5 text-center text-sm font-semibold text-ink-500 hover:text-rose-600">
+              {t("discover.reportBlock", { name: profile.nickname })}
+            </button>
+          )}
         </div>
       </div>
       {footer && <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-white via-white/95 to-transparent pb-5 pt-8">{footer}</div>}
