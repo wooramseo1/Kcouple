@@ -17,7 +17,7 @@ export default async function Landing() {
     { icon: <IconShield className="h-5 w-5" />, title: t("landing.f3"), desc: t("landing.f3d") },
   ];
   return (
-    <main className="min-h-dvh bg-gradient-to-b from-brand-50 via-white to-white">
+    <main className="min-h-dvh break-keep bg-gradient-to-b from-brand-50 via-white to-white">
       <div className="mx-auto max-w-5xl px-5">
         <header className="flex items-center justify-between py-5">
           <Logo className="text-2xl" />
