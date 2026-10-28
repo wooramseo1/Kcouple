@@ -18,7 +18,7 @@ TWA는 Chrome 엔진으로 우리 웹사이트를 주소창 없이 전체 화면
 | 1 | **영구 데이터 저장소** | ⚠️ 미해결 | 지금은 `db.json` 파일 하나에 저장합니다. 영구 디스크에 `DATA_DIR`를 지정하면 소규모 베타는 가능하지만, 정식 출시 전에는 `supabase/migrations/0001_init.sql`로 Supabase에 옮겨야 합니다. 서버를 여러 대 띄우면 데이터가 서로 달라집니다. |
 | 2 | **실질적 성인 확인** | ⚠️ 미해결 | 지금은 생년월일을 직접 입력받는 임시 방식입니다. 휴대폰 본인인증(PASS 등)이나 신분증 확인 같은 외국인도 쓸 수 있는 수단을 연동해야 합니다. |
 | 3 | **법률 검토** | ⚠️ 미해결 | `/terms`, `/privacy`, `/account-deletion`, `/child-safety`는 초안입니다. 개인정보 보호책임자, 국외 이전(서버 위치), 보관 기간을 확정하세요. |
-| 4 | **운영 연락처** | ⚠️ 일부 필요 | 연락 이메일은 `inbroad.global@gmail.com`이 기본값입니다. `PRIVACY_OFFICER`(개인정보 보호책임자 성명·직책)와 `OPERATOR_NAME`(상호)은 설정하지 않으면 자리표시자가 노출됩니다. |
+| 4 | **운영 연락처** | ✅ 기본값 설정 | 연락 이메일 `inbroad.global@gmail.com`, 개인정보 보호책임자 서우람, 운영자 인브로드. 바꾸려면 환경변수로 덮어씁니다. |
 | 5 | **HTTPS 도메인** | ⚠️ 필요 | TWA는 HTTPS 주소가 있어야 합니다(예: Render + 자체 도메인). |
 | 6 | **데모 모드 끄기** | ✅ 코드 반영 | 운영 환경(`NODE_ENV=production`)에서는 기본으로 꺼집니다. `DEMO_MODE=true`로 켜지 마세요. |
 
@@ -59,8 +59,8 @@ Render 기준입니다. 영구 디스크를 쓰려면 유료 인스턴스가 필
    ADMIN_PASSWORD=<12자 이상>
    SUPPORT_EMAIL=inbroad.global@gmail.com
    CHILD_SAFETY_EMAIL=inbroad.global@gmail.com
-   PRIVACY_OFFICER=홍길동 (대표)
-   OPERATOR_NAME=<상호>
+   PRIVACY_OFFICER=서우람
+   OPERATOR_NAME=인브로드
    SITE_URL=https://내도메인
    ```
 5. Settings → Custom Domain에서 자체 도메인을 연결합니다(권장).
