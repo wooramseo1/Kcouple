@@ -12,6 +12,16 @@ npm test           # 매칭 로직 단위 테스트
 npm run build && npm start
 ```
 
+### 휴대폰에서 보기
+PC와 휴대폰을 같은 Wi‑Fi에 연결한 뒤:
+
+```bash
+npm run mobile     # 같은 네트워크의 모든 기기에서 접속 허용
+```
+
+PC의 IP 주소(Windows `ipconfig`, macOS `ipconfig getifaddr en0`)를 확인해 휴대폰 브라우저에서 `http://<PC-IP>:3000` 으로 접속합니다.
+홈 화면에 추가하면 앱(PWA)처럼 전체 화면으로 실행됩니다.
+
 로그인 화면의 **데모 계정** 버튼으로 바로 체험할 수 있습니다.
 
 | 계정 | 비밀번호 | 설명 |

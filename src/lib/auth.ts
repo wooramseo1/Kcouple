@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { db, id, now, save } from "./db";
 import type { User } from "./types";
 
@@ -10,9 +10,9 @@ export async function createSession(userId: string) {
   const expiresAt = new Date(Date.now() + SESSION_DAYS * 86_400_000);
   db().sessions.push({ token, userId, expiresAt: expiresAt.toISOString() });
   save();
-  (await cookies()).set(SESSION_COOKIE, token, {
-    httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", expires: expiresAt,
-  });
+  // Secure only over HTTPS, so `npm start` still works over plain http on a LAN (e.g. testing from a phone).
+  const secure = (await headers()).get("x-forwarded-proto") === "https";
+  (await cookies()).set(SESSION_COOKIE, token, { httpOnly: true, sameSite: "lax", secure, path: "/", expires: expiresAt });
 }
 
 export async function destroySession() {
